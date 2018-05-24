@@ -9,6 +9,7 @@ var RSA = require("node-rsa");
 var archiver = require("archiver");
 var Promise = require("es6-promise").Promise;
 var resolve = require("./resolver.js");
+var BufferBuilder = require('buffer-builder');
 
 function ChromeExtension(attrs) {
   if ((this instanceof ChromeExtension) !== true) {
@@ -182,7 +183,7 @@ ChromeExtension.prototype = {
 
     return new Promise(function(resolve, reject){
       var archive = archiver('zip');
-      var contents = new Buffer('');
+      var contents = new BufferBuilder();
 
       if (!selfie.loaded) {
 	      throw new Error('crx.load needs to be called first in order to prepare the workspace.');
@@ -198,11 +199,11 @@ ChromeExtension.prototype = {
         @see https://github.com/oncletom/crx/issues/61
       */
       archive.on('data', function (buf) {
-        contents = Buffer.concat([contents, buf]);
+        contents.appendBuffer(buf);
       });
 
       archive.on('finish', function () {
-        resolve(contents);
+        resolve(contents.get());
       });
 
       archive

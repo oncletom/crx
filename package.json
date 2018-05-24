@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "archiver": "^1.1.0",
+    "buffer-builder": "^0.2.0",
     "commander": "^2.5.0",
     "es6-promise": "^3.0.0",
     "node-rsa": "^0.3.0"
