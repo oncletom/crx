@@ -38,8 +38,8 @@ crx.load( path.resolve(__dirname, './myExtension') )
   .then(crxBuffer => {
     const updateXML = crx.generateUpdateXML()
 
-    fs.writeFile('../update.xml', updateXML);
-    fs.writeFile('../myExtension.crx', crxBuffer);
+    fs.writeFileSync('../update.xml', updateXML);
+    fs.writeFileSync('../myExtension.crx', crxBuffer);
   })
   .catch(err=>{
     console.error( err );
@@ -77,7 +77,7 @@ Packs the Chrome Extension and resolves the promise with a Buffer containing the
 crx.load('/path/to/extension')
   .then(crx => crx.pack())
   .then(crxBuffer => {
-    fs.writeFile('/tmp/foobar.crx', crxBuffer);
+    fs.writeFileSync('/tmp/foobar.crx', crxBuffer);
   });
 ```
 
@@ -93,7 +93,7 @@ crx.load('/path/to/extension')
   .then(crxBuffer => {
     // ...
     const xmlBuffer = crx.generateUpdateXML();
-    fs.writeFile('/foo/bar/update.xml', xmlBuffer);
+    fs.writeFileSync('/foo/bar/update.xml', xmlBuffer);
   });
 ```
 
